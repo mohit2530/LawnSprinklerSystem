@@ -1,6 +1,6 @@
 # Lawn Sprinkler System
 
-[![Build Status](https://travis-ci.org/klugjo/hexo-autolinker.svg?branch=master)]
+![Build Status](https://travis-ci.org/klugjo/hexo-autolinker.svg?branch=master)
 [![License][license-image]][license]
 
 <img src="https://github.com/mohit2530/LawnSprinklerSystem/blob/master/sprinkler.jpeg"
