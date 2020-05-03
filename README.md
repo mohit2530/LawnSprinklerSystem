@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/klugjo/hexo-autolinker.svg?branch=master)]
 [![License][license-image]][license]
 
-<img src="https://github.com/mohit2530/LawnSprinklerSystem/blob/develop/sprinkler.jpeg"
+<img src="https://github.com/mohit2530/LawnSprinklerSystem/blob/master/sprinkler.jpeg"
  alt="Sprinkler System" title="Sprinklers" align="right" width="400px" height="400px" />
 
  Lawn Sprinkler System is designed to aid in proper usage of the sprinkler system to effectively aid the users to care for their lawn. In the first release of the project, this lawn sprinkler system does the very basics and we will continue to provide upgrade as we develop such features.
