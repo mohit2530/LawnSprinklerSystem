@@ -1,66 +1,49 @@
 
 '''
-LAWN SPRINKLER SYSTEM 
+LAWN SPRINKLER SYSTEM
 -----------------------
 
 
 Version 1.0.01 ( Initial Set up and MVP Requirements)
 
-Note: 
+Note:
 
 Certain things that are kept into consideration.
 
 a) Time of the day
-b) Weather of the following two days and the previous two days.
+b) Weather of the current day.
 c) Amount of water that is being consumed.
 d) Lawn dryness - default to medium FOR MVP.
 
 '''
 
 from datetime import datetime
-
+import requests, json
 
 def start():
-    initialPrints = ["Detecting Power ", "Sprinkler System On ", "Water Level Detection Meter Initialized ", "Machine Operational "];
-    tickMark = u'\u2713';
-    for value in initialPrints:
-        print((value + tickMark).encode('utf8'));
     shouldStartWater = run(datetime);
-    print(shouldStartWater); # just for printing purposes, QA test ongoing
-    return shouldStartWater;
+    if (shouldStartWater != False):
+        return True;
 
 def run(datetime):
     startWater = False;
     lawnDryness = "MEDIUM";
-    conditions = checkWeathersAndTime(datetime, lawnDryness);
-
-    conditionO1 = conditions[0];
-    conditionO2 = conditions[1];
-
-    if (conditionO1 == True and conditionO2 == True):
-        startWater == True;
-    return startWater;
-
+    validWeatherAndTime = checkWeathersAndTime(datetime, lawnDryness);
+    if (validWeatherAndTime):
+        return validWeatherAndTime;
+    return False;
 
 def checkWeathersAndTime(datetime, lawnDryness):
-    hoursValid = False;
-    weatherValid = False;
 
-    upperLimitOfHours = 10;
-    lowerLimitOfHours = 5;
-
-    weatherArrays = ["Sunny", "Windy", "Cloudy"];
-    noRain = True;
-
+    city_name = "Worthington";
     currentTime = datetime.today().hour;
-    currentWeather = "Rainy";
+    api_key = "59003b2d5fc0527ad0947d7857ed26cb";
+    base_url = "http://api.openweathermap.org/data/2.5/weather?";
 
-    if ( currentTime >= lowerLimitOfHours and currentTime <= upperLimitOfHours):
-        hoursValid = True;
-    if ( currentWeather in weatherArrays and lawnDryness == "MEDIUM"):
-        weatherValid = True;
-
-    return [hoursValid, weatherValid];
-
+    # if (currentTime >= 5 and currentTime <= 10):
+    fetch_url = base_url + "appid=" + api_key + "&q=" + city_name;
+    response = requests.get(fetch_url).json();
+    currentWeather = response["weather"][0]["main"];
+    return currentWeather;
 
 start();
