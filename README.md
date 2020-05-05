@@ -19,6 +19,25 @@
  4. One of the major upgrades is to calculate the water flow, and be able to assume the amount of water contained in  one given area to give estimates on how long the flow has to occur. We are still working on its implementation.
 
 
+## Release 1.00.02
+
+ 1. Monitoring Weather. If the hours is between 5 am and 10 am then only we monitor the weather. If the time is not at the allocated range, the sprinkler system should not even activate.
+
+ 2. Lawn dryness is still currently set at `Medium`.
+
+ 3. Previous day weather and future days weather are still not taken under consideration. Using `OpenWeatherApi.org` for the weather data. Working on the fix to fetch values for previous and future data.
+
+ 4. Water flow is also WIP. Will update in the comming releases.
+
+
+## Basic Installations
+
+We are currently upgrading our systems to be able to use docker. Once that is put into place, we no longer would require dependencies to be installed. For now however, we have some dependencies to be installed.
+
+ 1. python 3.0
+ 2. requests library for python
+
+
  ## QuickStart
 
 The application is simple, yet effective. The main goal behind this is to aid in the DIY Projects of a lawn sprinkler system. The quickstart guide should encompass a `HOW TO` video once everything is set up and done. This will allow the user to DIY the sprinkler system. The main overarching goal is to make lawn watering easy and as automatic as possible with the idea of being cost effective.
