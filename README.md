@@ -27,7 +27,7 @@
 
  3. Previous day weather and future days weather are still not taken under consideration. Using `OpenWeatherApi.org` for the weather data. Working on the fix to fetch values for previous and future data.
 
- 4. Water flow is also WIP. Will update in the comming releases.
+ 4. Water flow is also WIP. Will update in the coming releases.
 
 
 ## Basic Installations
