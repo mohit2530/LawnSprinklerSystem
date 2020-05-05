@@ -30,6 +30,13 @@
  4. Water flow is also WIP. Will update in the coming releases.
 
 
+## Release 1.00.03
+
+1. Updating the water flow. Now the program will set the watering to a dedicated level. More WIP on future releases.
+
+2. Includes minor bug fixes.
+
+
 ## Basic Installations
 
 We are currently upgrading our systems to be able to use docker. Once that is put into place, we no longer would require dependencies to be installed. For now however, we have some dependencies to be installed.
