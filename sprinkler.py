@@ -4,16 +4,25 @@ LAWN SPRINKLER SYSTEM
 -----------------------
 
 
-Version 1.0.01 ( Initial Set up and MVP Requirements)
+Version 1.0.03
 
-Note:
+Note
 
-Certain things that are kept into consideration.
+    Water Output Schematics
+    -----------------------
 
-a) Time of the day
-b) Weather of the current day.
-c) Amount of water that is being consumed.
-d) Lawn dryness - default to medium FOR MVP.
+    Average Water Output from a Sprinkler System == 1.22 inches / hour
+
+    Average Water required by lawn = 1.3 inches / week
+
+                Weekly Water on the Lawn ( inches )
+    Formula =   -------------------------------------
+                    Sprinkler Output ( hourly )
+
+    We need to water the lawn  = 1.066 hours = 63.93 minutes in a week. Dividing it equally in 7 days : 9.13 minutes a day.
+
+    Since it is not considered good to water continiously, we are going to split the time throughout the week.
+
 
 '''
 
@@ -45,5 +54,15 @@ def checkWeathersAndTime(datetime, lawnDryness):
         response = requests.get(fetch_url).json();
         currentWeather = response["weather"][0]["main"];
         return currentWeather;
+
+def calculateWaterFlow():
+
+    averageWaterOutput = 1.22 # 1.22 inches an hour
+    averageWaterRequiredByLawn = 1.3 # 1.3 inches per week. This can vary depending on the grass
+
+    weeklyWaterTheLawn = (averageWaterRequiredByLawn / averageWaterOutput ) * 60 # converting into minutes
+    dailyWaterTheLawn = weeklyWaterTheLawn / 7;
+
+
 
 start();
