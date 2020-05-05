@@ -40,10 +40,10 @@ def checkWeathersAndTime(datetime, lawnDryness):
     api_key = "59003b2d5fc0527ad0947d7857ed26cb";
     base_url = "http://api.openweathermap.org/data/2.5/weather?";
 
-    # if (currentTime >= 5 and currentTime <= 10):
-    fetch_url = base_url + "appid=" + api_key + "&q=" + city_name;
-    response = requests.get(fetch_url).json();
-    currentWeather = response["weather"][0]["main"];
-    return currentWeather;
+    if (currentTime >= 5 and currentTime <= 10):
+        fetch_url = base_url + "appid=" + api_key + "&q=" + city_name;
+        response = requests.get(fetch_url).json();
+        currentWeather = response["weather"][0]["main"];
+        return currentWeather;
 
 start();
