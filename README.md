@@ -39,15 +39,19 @@
 
 ## Release 1.00.04
 
- 1. Updating the water flow, currently the timer operates in conjunction to the level of water flow. Therfore, relaying stop to the relay when the timer has expired.
+ 1. Updating the water flow, currently the timer operates in conjunction to the level of water flow. Therefore, relaying stop to the relay when the timer has expired.
 
  2. Logging is enabled and all weather data is being stored in the information files.
 
 
-### UPCOMMING RELEASE
-======================
+## Release 1.00.05
 
-The upcomming release will include ability to research for previous weather and will record that activity. The next implementation would be where the script would allow the sprinkler system to execute only when there is no rainfall yesterday and today.
+1. Installation of `pip3 install pytz` for local date time.
+
+2. Surfacing the ability to look into previous day weather data and set the sprinkler to run henceforth.
+
+3. Control the size of the file, If the file is too large, then the script will remove the first lines. This check only occurs on December 31 every year.
+
 
 
 ## Basic Installations
@@ -56,6 +60,7 @@ We are currently upgrading our systems to be able to use docker. Once that is pu
 
  1. python 3.0
  2. requests library for python
+ 3. pip3 install pytz for local datetime
 
 
  ## QuickStart
