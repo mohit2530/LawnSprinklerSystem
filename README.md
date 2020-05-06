@@ -37,6 +37,19 @@
 2. Includes minor bug fixes.
 
 
+## Release 1.00.04
+
+ 1. Updating the water flow, currently the timer operates in conjunction to the level of water flow. Therfore, relaying stop to the relay when the timer has expired.
+
+ 2. Logging is enabled and all weather data is being stored in the information files.
+
+
+### UPCOMMING RELEASE
+======================
+
+The upcomming release will include ability to research for previous weather and will record that activity. The next implementation would be where the script would allow the sprinkler system to execute only when there is no rainfall yesterday and today.
+
+
 ## Basic Installations
 
 We are currently upgrading our systems to be able to use docker. Once that is put into place, we no longer would require dependencies to be installed. For now however, we have some dependencies to be installed.

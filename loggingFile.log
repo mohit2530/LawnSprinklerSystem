@@ -1,0 +1,4 @@
+2020-05-05 20:33:34,854 Starting new HTTP connection (1): api.openweathermap.org:80
+2020-05-05 20:33:34,977 http://api.openweathermap.org:80 "GET /data/2.5/weather?appid=59003b2d5fc0527ad0947d7857ed26cb&q=Worthington HTTP/1.1" 200 478
+2020-05-05 20:33:34,979 Weather Api Successful. The current weather is : Clouds
+2020-05-05 20:33:34,979 Clouds
