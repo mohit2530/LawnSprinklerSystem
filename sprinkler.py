@@ -26,8 +26,8 @@ Note
 
 '''
 
-from datetime import datetime
-import requests, json, logging, time
+from datetime import datetime, timedelta
+import requests, json, logging, pytz, time
 
 def start():
 
@@ -36,10 +36,14 @@ def start():
     shouldStartWater = run(datetime);
 
     if (shouldStartWater != False):
+        logging.warning("Water is starting.")
         start_timer = calculateWaterFlow();
         logging.info(shouldStartWater);
         stopMotion = countdown(start_timer);
         return stopMotion;
+    else:
+        logging.warning("Water has failed to start. Check logs if inconsistencies are detected.");
+        return False;
 
 def countdown(allocatedTime):
     '''
@@ -58,32 +62,60 @@ def countdown(allocatedTime):
         allocatedTime -= 1
     return False;
 
-
 def run(datetime):
 
-    validWeatherAndTime = logWeatherAndTime(datetime);
+    city_name = "Worthington";
+    timeZone = pytz.timezone('America/New_York')
+    currentTime =  datetime.now(timeZone);
+    fileName = "information.txt";
 
+    validWeatherAndTime = logWeatherAndTime(currentTime, city_name, fileName);
     if (validWeatherAndTime):
         logging.info("Weather Api Successful. The current weather is : " + validWeatherAndTime);
-        return validWeatherAndTime;
-    logging.error("Weather API data failed... Cannot generate data.");
+    else:
+        logging.error("Weather API data failed... Cannot generate data.");
+
+    if ( currentTime.month == 12 and currentTime.day == 31) :
+        clearInfoPeriodically(fileName);
+
+    # retrieve the data from the information.txt file to show all the data that is being generated.
+    noRainValue = noRain(fileName, currentTime);
+
+    if ( (currentTime.hour >= 5 and currentTime.hour <= 7) and noRainValue):
+        return True; # This fucntion will dictate whether or not the water has to start or stop.
     return False;
 
-def logWeatherAndTime(datetime):
+def noRain(fileName, currentTime):
 
-    city_name = "Worthington";
+    '''
+    noRain function, detects rain from yesterday to the time to execute until today. If rain is detected within the past 24 hours, it will not let the sprinkler start.
+    '''
+    yesterday = datetime.strftime(currentTime - timedelta(1), '%Y-%m-%d')
+    today = datetime.strftime(currentTime, '%Y-%m-%d')
+    with open(fileName, "r") as readingFile:
+        readFile = readingFile.readlines();
+        for line in readFile:
+            fields = line.split();
+            if ( (fields[0].__contains__(yesterday) or fields[0].__contains__(today) ) and fields[::1].__contains__("Rain")):
+                logging.warning("Rain is detected... Within the past 24 hours.")
+                return False;
+    return True;
+
+def logWeatherAndTime( currentTime, city_name, fileName):
+
     fileName = "information.txt";
-    currentTime = datetime.today().hour;
     api_key = "59003b2d5fc0527ad0947d7857ed26cb";
     base_url = "http://api.openweathermap.org/data/2.5/weather?";
+    # every odd hour on the clock the weather api would execute its data
+    hourlyChecksToMaintain = [i for i in range(24) if i % 2 != 0];
 
-    if (currentTime >= 5 and currentTime <= 10):
+    if (currentTime.hour in hourlyChecksToMaintain):
         fetch_url = base_url + "appid=" + api_key + "&q=" + city_name;
         response = requests.get(fetch_url).json();
         currentWeather = response["weather"][0]["main"];
-        writeFile = open(fileName, "a");
-        timeAndData = datetime.now().strftime("%d/%m/%Y %H:%M:%S " + currentWeather + '\n');
-        writeFile.write(timeAndData)
+        with open(fileName, "a") as writeFile:
+            timeAndData = currentTime.strftime('%Y-%m-%d %H:%M:%S') + " " + currentWeather + '\n';
+            writeFile.write(timeAndData)
         return currentWeather;
 
 def calculateWaterFlow():
@@ -107,5 +139,23 @@ def enableLogging():
     logger = logging.getLogger();
     logger.setLevel(logging.DEBUG);
     return logger;
+
+
+def clearInfoPeriodically(fileName):
+    '''
+    Function to periodically remove the lines from the file so that the file doesn't get too large.
+    '''
+    lines = 0;
+    with open(fileName, "r") as file:
+        for i, l in enumerate(file):
+            pass
+    lines = i + 1;
+
+    if (lines > 10):
+        with open(fileName, "r") as file:
+            retreiveAllLines = file.readlines();
+        with open(fileName, "w") as writeFile:
+            writeFile.writelines(retreiveAllLines[10::]);
+
 
 start();
