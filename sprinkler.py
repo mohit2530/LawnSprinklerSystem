@@ -151,7 +151,7 @@ def clearInfoPeriodically(fileName):
             pass
     lines = i + 1;
 
-    if (lines > 10):
+    if (lines > 200):
         with open(fileName, "r") as file:
             retreiveAllLines = file.readlines();
         with open(fileName, "w") as writeFile:
