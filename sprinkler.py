@@ -33,17 +33,28 @@ def start():
 
     # for logging purposes only
     loggingValue = enableLogging();
-    shouldStartWater = run(datetime);
+    # shouldStartWater = run(datetime);
+    shouldStartWater = True;
 
     if (shouldStartWater != False):
         logging.warning("Water is starting.")
         start_timer = calculateWaterFlow();
+        if (start_timer):
+            startWater("start")
         logging.info(shouldStartWater);
         stopMotion = countdown(start_timer);
-        return stopMotion;
+        startWater(stopMotion)
     else:
         logging.warning("Water has failed to start. Check logs if inconsistencies are detected.");
         return False;
+
+def startWater(params):
+    # run the water
+    if (params == "start"):
+        print("Water started")
+    else:
+        print("Water ended")
+
 
 def countdown(allocatedTime):
     '''
@@ -54,7 +65,7 @@ def countdown(allocatedTime):
 
     '''
 
-    while allocatedTime:
+    while allocatedTime >= 0:
         mins, secs = divmod(allocatedTime, 60)
         timeformat = '{:02f}:{:02f}'.format(mins, secs)
         print(timeformat, end='\r')
@@ -81,8 +92,8 @@ def run(datetime):
     # retrieve the data from the information.txt file to show all the data that is being generated.
     noRainValue = noRain(fileName, currentTime);
 
-    if ( (currentTime.hour >= 5 and currentTime.hour <= 7) and noRainValue):
-        return True; # This fucntion will dictate whether or not the water has to start or stop.
+    if ( (currentTime.hour >= 5 and currentTime.hour <= 10) and noRainValue):
+        return True; # This function will dictate whether or not the water has to start or stop.
     return False;
 
 def noRain(fileName, currentTime):
