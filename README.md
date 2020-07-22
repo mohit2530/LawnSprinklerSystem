@@ -58,6 +58,9 @@
 
 2. Odd hourly checks are run, cron tab is also set for odd hours.
 
+3. Installation of `sudo apt-get install python-rpi.gpio python3-rpi.gpio`
+
+
 ## Basic Installations
 
 We are currently upgrading our systems to be able to use docker. Once that is put into place, we no longer would require dependencies to be installed. For now however, we have some dependencies to be installed.

@@ -24,6 +24,12 @@ Version 1.0.06
 
 from datetime import datetime, timedelta
 import requests, json, logging, pytz, time
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.output(27, GPIO.HIGH) # set the first led
+GPIO.output(22, GPIO.HIGH) # set the second led
+GPIO.output(17, GPIO.HIGH) # set the relay to on position
 
 def start():
 
@@ -36,8 +42,8 @@ def start():
         logging.warning("Water is starting.")
         start_timer = calculateWaterFlow();
         if (start_timer):
-            logging.info(shouldStartWater);
-            stopMotion = countdown(start_timer);
+        	logging.info(shouldStartWater);
+       		stopMotion = countdown(start_timer); # start water && end it
     else:
         logging.warning("Water has failed to start. Check logs if inconsistencies are detected.");
         return False;
@@ -55,6 +61,7 @@ def countdown(allocatedTime):
         print(timeformat, end='\r')
         time.sleep(1)
         allocatedTime -= 1
+    GPIO.output(17, GPIO.LOW) # set the relay to off
     return False;
 
 def run(datetime):
