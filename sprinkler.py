@@ -28,6 +28,12 @@ Note
 
 from datetime import datetime, timedelta
 import requests, json, logging, pytz, time
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.setup(17, GPIO.OUT)
+GPIO.setup(27, GPIO.OUT)
+GPIO.setup(22, GPIO.OUT)
 
 def start():
 
@@ -40,20 +46,11 @@ def start():
         logging.warning("Water is starting.")
         start_timer = calculateWaterFlow();
         if (start_timer):
-            startWater("start")
-        logging.info(shouldStartWater);
-        stopMotion = countdown(start_timer);
-        startWater(stopMotion)
+        	logging.info(shouldStartWater);
+       		stopMotion = countdown(start_timer); # start water && end it
     else:
         logging.warning("Water has failed to start. Check logs if inconsistencies are detected.");
         return False;
-
-def startWater(params):
-    # run the water
-    if (params == "start"):
-        print("Water started")
-    else:
-        print("Water ended")
 
 
 def countdown(allocatedTime):
@@ -64,13 +61,16 @@ def countdown(allocatedTime):
     @return bool : false when the timer ends
 
     '''
-
+    GPIO.output(27, GPIO.HIGH) # set the first led
+    GPIO.output(22, GPIO.HIGH) # set the second led
+    GPIO.output(17, GPIO.HIGH) # set the relay to on position
     while allocatedTime >= 0:
         mins, secs = divmod(allocatedTime, 60)
         timeformat = '{:02f}:{:02f}'.format(mins, secs)
         print(timeformat, end='\r')
         time.sleep(1)
         allocatedTime -= 1
+    GPIO.output(17, GPIO.LOW) # set the relay to off
     return False;
 
 def run(datetime):
