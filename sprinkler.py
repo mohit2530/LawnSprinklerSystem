@@ -4,15 +4,12 @@ LAWN SPRINKLER SYSTEM
 -----------------------
 
 
-Version 1.0.03
-
-Note
+Version 1.0.06
 
     Water Output Schematics
     -----------------------
 
     Average Water Output from a Sprinkler System == 1.22 inches / hour
-
     Average Water required by lawn = 1.3 inches / week
 
                 Weekly Water on the Lawn ( inches )
@@ -22,7 +19,6 @@ Note
     We need to water the lawn  = 1.066 hours = 63.93 minutes in a week. Dividing it equally in 7 days : 9.13 minutes a day.
 
     Since it is not considered good to water continiously, we are going to split the time throughout the week.
-
 
 '''
 
@@ -40,21 +36,11 @@ def start():
         logging.warning("Water is starting.")
         start_timer = calculateWaterFlow();
         if (start_timer):
-            startWater("start")
-        logging.info(shouldStartWater);
-        stopMotion = countdown(start_timer);
-        startWater(stopMotion)
+            logging.info(shouldStartWater);
+            stopMotion = countdown(start_timer);
     else:
         logging.warning("Water has failed to start. Check logs if inconsistencies are detected.");
         return False;
-
-def startWater(params):
-    # run the water
-    if (params == "start"):
-        print("Water started")
-    else:
-        print("Water ended")
-
 
 def countdown(allocatedTime):
     '''
@@ -62,9 +48,7 @@ def countdown(allocatedTime):
     Input : The time in seconds
 
     @return bool : false when the timer ends
-
     '''
-
     while allocatedTime >= 0:
         mins, secs = divmod(allocatedTime, 60)
         timeformat = '{:02f}:{:02f}'.format(mins, secs)
@@ -74,11 +58,10 @@ def countdown(allocatedTime):
     return False;
 
 def run(datetime):
-
     city_name = "Worthington";
     timeZone = pytz.timezone('America/New_York')
     currentTime =  datetime.now(timeZone);
-    fileName = "information.txt";
+    fileName = "/home/pi/Desktop/code/LawnSprinklerSystem/information.txt";
 
     validWeatherAndTime = logWeatherAndTime(currentTime, city_name, fileName);
     if (validWeatherAndTime):
@@ -89,15 +72,13 @@ def run(datetime):
     if ( currentTime.month == 12 and currentTime.day == 31) :
         clearInfoPeriodically(fileName);
 
-    # retrieve the data from the information.txt file to show all the data that is being generated.
-    noRainValue = noRain(fileName, currentTime);
-
+    noRainValue = noRain(fileName, currentTime); # retrieve the data from the information.txt file
+     # To dictate whether or not the water has to start or stop.
     if ( (currentTime.hour >= 5 and currentTime.hour <= 10) and noRainValue):
-        return True; # This function will dictate whether or not the water has to start or stop.
+        return True;
     return False;
 
 def noRain(fileName, currentTime):
-
     '''
     noRain function, detects rain from yesterday to the time to execute until today. If rain is detected within the past 24 hours, it will not let the sprinkler start.
     '''
@@ -143,10 +124,9 @@ def calculateWaterFlow():
 
 def enableLogging():
     '''
-    Enable Logging to accomodate default debugging logs. This logs not only will take debugging into considerations, but the info actually will
-    retrieve data from the weather application. This information can be used to get idea on whether it rained yesterday or not.
+    Enable Logging to accomodate default debugging logs. This logs not only will take debugging into considerations, but the info actually will retrieve data from the weather application. This information can be used to get idea on whether it rained yesterday or not.
     '''
-    logging.basicConfig(filename="loggingFile.log", format='%(asctime)s %(message)s', filemode='w')
+    logging.basicConfig(filename="/home/pi/Desktop/code/LawnSprinklerSystem/loggingFile.log", format='%(asctime)s %(message)s', filemode='w')
     logger = logging.getLogger();
     logger.setLevel(logging.DEBUG);
     return logger;
@@ -167,6 +147,5 @@ def clearInfoPeriodically(fileName):
             retreiveAllLines = file.readlines();
         with open(fileName, "w") as writeFile:
             writeFile.writelines(retreiveAllLines[100::]);
-
 
 start();

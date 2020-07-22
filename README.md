@@ -52,7 +52,11 @@
 
 3. Control the size of the file, If the file is too large, then the script will remove the first lines. This check only occurs on December 31 every year.
 
+## Release 1.00.06
 
+1. Set up to work in cron timer from RASPBERRY PI.
+
+2. Odd hourly checks are run, cron tab is also set for odd hours.
 
 ## Basic Installations
 
