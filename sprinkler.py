@@ -27,16 +27,15 @@ import requests, json, logging, pytz, time
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-GPIO.output(27, GPIO.HIGH) # set the first led
-GPIO.output(22, GPIO.HIGH) # set the second led
-GPIO.output(17, GPIO.HIGH) # set the relay to on position
+GPIO.setup(17, GPIO.OUT)
+GPIO.setup(27, GPIO.OUT)
+GPIO.setup(22, GPIO.OUT)
 
 def start():
 
     # for logging purposes only
     loggingValue = enableLogging();
-    # shouldStartWater = run(datetime);
-    shouldStartWater = True;
+    shouldStartWater = run(datetime);
 
     if (shouldStartWater != False):
         logging.warning("Water is starting.")
@@ -54,6 +53,9 @@ def countdown(allocatedTime):
 
     @return bool : false when the timer ends
     '''
+    GPIO.output(27, GPIO.HIGH) # set the first led
+    GPIO.output(22, GPIO.HIGH) # set the second led
+    GPIO.output(17, GPIO.HIGH) # set the relay to on position
     while allocatedTime >= 0:
         mins, secs = divmod(allocatedTime, 60)
         timeformat = '{:02f}:{:02f}'.format(mins, secs)
@@ -102,7 +104,7 @@ def noRain(fileName, currentTime):
 
 def logWeatherAndTime( currentTime, city_name, fileName):
 
-    fileName = "information.txt";
+    fileName = "/home/pi/Desktop/code/LawnSprinklerSystem/information.txt";
     api_key = "59003b2d5fc0527ad0947d7857ed26cb";
     base_url = "http://api.openweathermap.org/data/2.5/weather?";
     # every odd hour on the clock the weather api would execute its data

@@ -10,13 +10,9 @@
 
  ## Limitations
 
- 1. Weather is not being monitored. We assume that it is a sunny day.
+ 1. We have no way of letting the user provide the lawn dryness. Lawn Dryness is set at `Medium` as such.
 
- 2. We have no way of letting the user provide the lawn dryness. Lawn Dryness is set at `Medium` as such.
-
- 3. We do not take the previous days or the weather of the future days into account either.
-
- 4. One of the major upgrades is to calculate the water flow, and be able to assume the amount of water contained in  one given area to give estimates on how long the flow has to occur. We are still working on its implementation.
+ 2. One of the major upgrades is to calculate the water flow, and be able to assume the amount of water contained in  one given area to give estimates on how long the flow has to occur. We are still working on its implementation.
 
 
 ## Release 1.00.02
@@ -68,6 +64,8 @@ We are currently upgrading our systems to be able to use docker. Once that is pu
  1. python 3.0
  2. requests library for python
  3. pip3 install pytz for local datetime
+ 4. sudo apt-get install python-rpi.gpio python3-rpi.gpio
+ 5. Crontab :: --> 0 * * * * python3 <location of file>
 
 
  ## QuickStart
