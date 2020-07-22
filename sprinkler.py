@@ -46,7 +46,6 @@ def start():
         logging.warning("Water is starting.")
         start_timer = calculateWaterFlow();
         if (start_timer):
-        	logging.info(shouldStartWater);
        		stopMotion = countdown(start_timer); # start water && end it
     else:
         logging.warning("Water has failed to start. Check logs if inconsistencies are detected.");
