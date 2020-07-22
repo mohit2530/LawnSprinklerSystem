@@ -70,6 +70,7 @@ def countdown(allocatedTime):
         print(timeformat, end='\r')
         time.sleep(1)
         allocatedTime -= 1
+    logging.warning("Water is ending")
     GPIO.output(17, GPIO.LOW) # set the relay to off
     return False;
 
@@ -146,7 +147,7 @@ def enableLogging():
     Enable Logging to accomodate default debugging logs. This logs not only will take debugging into considerations, but the info actually will
     retrieve data from the weather application. This information can be used to get idea on whether it rained yesterday or not.
     '''
-    logging.basicConfig(filename="loggingFile.log", format='%(asctime)s %(message)s', filemode='w')
+    logging.basicConfig(filename="loggingFile.log", format='%(asctime)s %(message)s ', filemode='w')
     logger = logging.getLogger();
     logger.setLevel(logging.DEBUG);
     return logger;
