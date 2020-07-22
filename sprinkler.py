@@ -71,7 +71,7 @@ def run(datetime):
     city_name = "Worthington";
     timeZone = pytz.timezone('America/New_York')
     currentTime =  datetime.now(timeZone);
-    fileName = "information.txt";
+    fileName = "/home/pi/Desktop/code/LawnSprinklerSystem/information.txt";
 
     validWeatherAndTime = logWeatherAndTime(currentTime, city_name, fileName);
     if (validWeatherAndTime):
@@ -105,7 +105,7 @@ def noRain(fileName, currentTime):
 
 def logWeatherAndTime( currentTime, city_name, fileName):
 
-    fileName = "information.txt";
+    fileName = "/home/pi/Desktop/code/LawnSprinklerSystem/information.txt";
     api_key = "59003b2d5fc0527ad0947d7857ed26cb";
     base_url = "http://api.openweathermap.org/data/2.5/weather?";
     # every odd hour on the clock the weather api would execute its data
@@ -136,7 +136,7 @@ def enableLogging():
     '''
     Enable Logging to accomodate default debugging logs. This logs not only will take debugging into considerations, but the info actually will retrieve data from the weather application. This information can be used to get idea on whether it rained yesterday or not.
     '''
-    logging.basicConfig(filename="loggingFile.log", format='%(asctime)s %(message)s', filemode='w')
+    logging.basicConfig(filename="/home/pi/Desktop/code/LawnSprinklerSystem/loggingFile.log", format='%(asctime)s %(message)s', filemode='w')
     logger = logging.getLogger();
     logger.setLevel(logging.DEBUG);
     return logger;
