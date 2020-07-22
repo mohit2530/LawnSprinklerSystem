@@ -1,0 +1,5 @@
+2020-07-22 13:12:02,937 Starting new HTTP connection (1): api.openweathermap.org:80
+2020-07-22 13:12:03,408 http://api.openweathermap.org:80 "GET /data/2.5/weather?appid=59003b2d5fc0527ad0947d7857ed26cb&q=Worthington HTTP/1.1" 200 471
+2020-07-22 13:12:03,412 Weather Api Successful. The current weather is : Rain
+2020-07-22 13:12:03,413 Rain is detected... Within the past 24 hours.
+2020-07-22 13:12:03,413 Water has failed to start. Check logs if inconsistencies are detected.

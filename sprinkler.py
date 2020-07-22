@@ -35,8 +35,7 @@ def start():
 
     # for logging purposes only
     loggingValue = enableLogging();
-    # shouldStartWater = run(datetime);
-    shouldStartWater = True;
+    shouldStartWater = run(datetime);
 
     if (shouldStartWater != False):
         logging.warning("Water is starting.")
