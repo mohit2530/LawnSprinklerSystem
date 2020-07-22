@@ -27,9 +27,9 @@ import requests, json, logging, pytz, time
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-GPIO.output(27, GPIO.HIGH) # set the first led
-GPIO.output(22, GPIO.HIGH) # set the second led
-GPIO.output(17, GPIO.HIGH) # set the relay to on position
+GPIO.setup(17, GPIO.OUT)
+GPIO.setup(27, GPIO.OUT)
+GPIO.setup(22, GPIO.OUT)
 
 def start():
 
@@ -54,6 +54,9 @@ def countdown(allocatedTime):
 
     @return bool : false when the timer ends
     '''
+    GPIO.output(27, GPIO.HIGH) # set the first led
+    GPIO.output(22, GPIO.HIGH) # set the second led
+    GPIO.output(17, GPIO.HIGH) # set the relay to on position
     while allocatedTime >= 0:
         mins, secs = divmod(allocatedTime, 60)
         timeformat = '{:02f}:{:02f}'.format(mins, secs)
@@ -68,7 +71,7 @@ def run(datetime):
     city_name = "Worthington";
     timeZone = pytz.timezone('America/New_York')
     currentTime =  datetime.now(timeZone);
-    fileName = "/home/pi/Desktop/code/LawnSprinklerSystem/information.txt";
+    fileName = "information.txt";
 
     validWeatherAndTime = logWeatherAndTime(currentTime, city_name, fileName);
     if (validWeatherAndTime):
@@ -133,7 +136,7 @@ def enableLogging():
     '''
     Enable Logging to accomodate default debugging logs. This logs not only will take debugging into considerations, but the info actually will retrieve data from the weather application. This information can be used to get idea on whether it rained yesterday or not.
     '''
-    logging.basicConfig(filename="/home/pi/Desktop/code/LawnSprinklerSystem/loggingFile.log", format='%(asctime)s %(message)s', filemode='w')
+    logging.basicConfig(filename="loggingFile.log", format='%(asctime)s %(message)s', filemode='w')
     logger = logging.getLogger();
     logger.setLevel(logging.DEBUG);
     return logger;
