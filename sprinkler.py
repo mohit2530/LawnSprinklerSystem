@@ -42,7 +42,6 @@ def start():
         logging.warning("Water is starting.")
         start_timer = calculateWaterFlow();
         if (start_timer):
-        	logging.info(shouldStartWater);
        		stopMotion = countdown(start_timer); # start water && end it
     else:
         logging.warning("Water has failed to start. Check logs if inconsistencies are detected.");
@@ -61,6 +60,7 @@ def countdown(allocatedTime):
         print(timeformat, end='\r')
         time.sleep(1)
         allocatedTime -= 1
+    logging.warning("Water is ending")
     GPIO.output(17, GPIO.LOW) # set the relay to off
     return False;
 
