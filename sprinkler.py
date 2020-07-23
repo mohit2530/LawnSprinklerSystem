@@ -66,6 +66,8 @@ def countdown(allocatedTime):
         allocatedTime -= 1
     logging.warning("Water is ending")
     GPIO.output(17, GPIO.LOW) # set the relay to off
+    GPIO.output(27, GPIO.HIGH) # set the first led
+    GPIO.output(22, GPIO.HIGH) # set the second led
     return False;
 
 def run(datetime):
