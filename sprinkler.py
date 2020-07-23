@@ -19,6 +19,7 @@ Version 1.0.06
     We need to water the lawn  = 1.066 hours = 63.93 minutes in a week. Dividing it equally in 7 days : 9.13 minutes a day.
 
     Since it is not considered good to water continiously, we are going to split the time throughout the week.
+    Water only starts at 6am by default.
 
 '''
 
@@ -34,7 +35,8 @@ GPIO.setup(22, GPIO.OUT)
 def start():
 
     # for logging purposes only
-    loggingValue = enableLogging();
+    fileName = "/home/pi/Desktop/code/LawnSprinklerSystem/loggingFile.log";
+    loggingValue = enableLogging(fileName);
     shouldStartWater = run(datetime);
 
     if (shouldStartWater != False):
@@ -82,8 +84,8 @@ def run(datetime):
         clearInfoPeriodically(fileName);
 
     noRainValue = noRain(fileName, currentTime); # retrieve the data from the information.txt file
-     # To dictate whether or not the water has to start or stop.
-    if ( (currentTime.hour >= 5 and currentTime.hour <= 10) and noRainValue):
+     # To dictate whether or not the water has to start or stop. Note: runs at 6am in the morning.
+    if ( (currentTime.hour == 6) and noRainValue):
         return True;
     return False;
 
@@ -104,7 +106,6 @@ def noRain(fileName, currentTime):
 
 def logWeatherAndTime( currentTime, city_name, fileName):
 
-    fileName = "/home/pi/Desktop/code/LawnSprinklerSystem/information.txt";
     api_key = "59003b2d5fc0527ad0947d7857ed26cb";
     base_url = "http://api.openweathermap.org/data/2.5/weather?";
     # every odd hour on the clock the weather api would execute its data
@@ -131,11 +132,11 @@ def calculateWaterFlow():
     # returning the value in seconds in order for the timer function to execute its time.
     return dailyWaterTheLawn * 60;
 
-def enableLogging():
+def enableLogging(fileName):
     '''
     Enable Logging to accomodate default debugging logs. This logs not only will take debugging into considerations, but the info actually will retrieve data from the weather application. This information can be used to get idea on whether it rained yesterday or not.
     '''
-    logging.basicConfig(filename="/home/pi/Desktop/code/LawnSprinklerSystem/loggingFile.log", format='%(asctime)s %(message)s', filemode='w')
+    logging.basicConfig(filename=fileName, format='%(asctime)s %(message)s', filemode='w')
     logger = logging.getLogger();
     logger.setLevel(logging.DEBUG);
     return logger;
