@@ -66,8 +66,8 @@ def countdown(allocatedTime):
         allocatedTime -= 1
     logging.warning("Water is ending")
     GPIO.output(17, GPIO.LOW) # set the relay to off
-    GPIO.output(27, GPIO.HIGH) # set the first led
-    GPIO.output(22, GPIO.HIGH) # set the second led
+    GPIO.output(27, GPIO.LOW) # set the first led
+    GPIO.output(22, GPIO.LOW) # set the second led
     return False;
 
 def run(datetime):
@@ -87,7 +87,7 @@ def run(datetime):
 
     noRainValue = noRain(fileName, currentTime); # retrieve the data from the information.txt file
      # To dictate whether or not the water has to start or stop. Note: runs at 6am in the morning.
-    if ( (currentTime.hour == 6) and noRainValue):
+    if ( (currentTime.hour) and noRainValue):
         return True;
     return False;
 
