@@ -16,14 +16,21 @@ In addition to above, we are also trying to setup email and an UI interface to u
 
 ### Device Used
 
-1. Raspberry PI. Model 4. **[Raspberry PI ][pilink]**
-2. Relay 5V . **[Relay Switch][relay]**
-3. Lights ( LED ) for visual purposes. **[Lights][lighting]**
-4. Female Jumper Wires. **[Female Wires][wires]**
-5. Rectifier Diode for flyback. **[Rectifier Diode][rectifier]**
-6. 220 Ohm Resistors for lights. **[Resistor][resistors]**
-7. DC Solenoid Valve. **[DC Valve][valve]**
-8. DC power adapter. **[DC Power Adapter][poweradapter]**
+Raspberry PI. Model 4 **[Raspberry Pi Model][raspy]**
+
+Relay 5V **[Relay][relay]**
+
+Lights ( LED ) for visual purposes. **[Light][lights]**
+
+Female Jumper Wires. **[Female Wires][wires]**
+
+Rectifier Diode for flyback. **[Rectifier Diode][rectifier]**
+
+220 Ohm Resistors for lights. **[Resistor][resistors]**
+
+DC Solenoid Valve. **[DC Valve][valve]**
+
+DC power adapter. **[DC Power Adapter][adapter]**
 
 `Note`: The solenoid valve must match the power adapter type. And 3/4 inch solenoid valve is more than enough for small home projects.
 
@@ -31,16 +38,14 @@ In addition to above, we are also trying to setup email and an UI interface to u
 ### Breadboard Image
 
 Image of the breadboard : **[imageBreadboard][image] **
-Image of the circuit : **[circuit][circuitImg]**
+Image of the circuit : **[Circuit][circuitImg]**
 
-[pilink] : https://www.raspberrypi.org/products/raspberry-pi-4-model-b/
-[lighting] : https://www.sparkfun.com/products/12062
-[wires] : https://www.sparkfun.com/products/9140
-[relay] : https://www.amazon.com/SunFounder-Channel-Optocoupler-Expansion-Raspberry/dp/B00E0NTPP4?ref_=fsclp_pl_dp_4
-[rectifier] : https://www.sparkfun.com/products/8589
-[resistors] : https://www.jameco.com/webapp/wcs/stores/servlet/Product_10001_10001_690700_-1
-[valve] : https://www.lowes.com/pd/Orbit-1-in-Plastic-Electric-Inline-Irrigation-Valve/1000152387
-[poweradapter]: https://www.amazon.com/12v-power-supply/s?k=12v+power+supply
-
-[image] : https://github.com/mohit2530/LawnSprinklerSystem
-[circuitImg] : https://github.com/mohit2530/LawnSprinklerSystem
+[raspy]: https://www.raspberrypi.org/products/raspberry-pi-4-model-b/
+[relay]:https://www.amazon.com/SunFounder-Channel-Optocoupler-Expansion-Raspberry/dp/B00E0NTPP4?ref_=fsclp_pl_dp_4
+[lights]: https://www.sparkfun.com/products/12062
+[wires]: https://www.sparkfun.com/products/9140
+[rectifier]: https://www.sparkfun.com/products/8589
+[resistors]: https://www.jameco.com/webapp/wcs/stores/servlet/Product_10001_10001_690700_-1
+[valve]: https://www.lowes.com/pd/Orbit-1-in-Plastic-Electric-Inline-Irrigation-Valve/1000152387
+[adapter]: https://www.amazon.com/12v-power-supply/s?k=12v+power+supply
+[circuitImg]: https://github.com/mohit2530/LawnSprinklerSystem
