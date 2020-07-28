@@ -30,7 +30,6 @@ GPIO.setwarnings(False)
 GPIO.setup(21, GPIO.OUT)
 
 def start():
-
     # for logging purposes only
     fileName = "/home/pi/Desktop/code/LawnSprinklerSystem/loggingFile.log";
     loggingValue = enableLogging(fileName);
@@ -52,7 +51,7 @@ def countdown(allocatedTime):
 
     @return bool : false when the timer ends
     '''
-    GPIO.output(21, GPIO.HIGH) # set the relay to on position
+    channelOn(21);  # set the relay to on position
     while allocatedTime >= 0:
         mins, secs = divmod(allocatedTime, 60)
         timeformat = '{:02f}:{:02f}'.format(mins, secs)
@@ -60,7 +59,7 @@ def countdown(allocatedTime):
         time.sleep(1)
         allocatedTime -= 1
     logging.warning("Water is ending")
-    GPIO.output(21, GPIO.LOW) # set the relay to off
+    channelOff(21); # set the relay to off
     return False;
 
 def run(datetime):
@@ -136,6 +135,18 @@ def enableLogging(fileName):
     logger.setLevel(logging.DEBUG);
     return logger;
 
+
+def channelOn(pin):
+    '''
+    Function to read the pin number and set it to high
+    '''
+    GPIO.output(pin, GPIO.HIGH)
+
+def channelOff(pin):
+    '''
+    Function to read the pin number and set it to low
+    '''
+    GPIO.output(pin, GPIO.LOW)
 
 def clearInfoPeriodically(fileName):
     '''
