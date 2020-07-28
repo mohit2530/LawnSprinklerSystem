@@ -65,6 +65,6 @@ limitations under the License.
 [contributing-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/contributing.png
 
 [techdocs]: https://github.com/mohit2530/LawnSprinklerSystem/blob/master/documentation.md
-[setup]: https://github.com/mohit2530/LawnSprinklerSystem/blob/master/setup.md
+[setup]: https://github.com/mohit2530/LawnSprinklerSystem/blob/master/setup/setup.md
 [roadmap]: https://github.com/mohit2530/LawnSprinklerSystem
 [contributing]: https://github.com/mohit2530/LawnSprinklerSystem

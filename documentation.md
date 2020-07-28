@@ -43,8 +43,7 @@
 
 3. Installation of `sudo apt-get install python-rpi.gpio python3-rpi.gpio`
 
-
-## Release 2.00.01
+## Release 2.00.00
 
 1. Fully functional sprinkler system is recorded at this point.
 
