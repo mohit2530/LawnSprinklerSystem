@@ -80,7 +80,7 @@ def run(datetime):
 
     noRainValue = noRain(fileName, currentTime); # retrieve the data from the information.txt file
      # To dictate whether or not the water has to start or stop. Note: runs at 6am in the morning.
-    if ( (currentTime.hour == 6) and noRainValue):
+    if ( (currentTime.hour) and noRainValue):
         return True;
     return False;
 
