@@ -35,9 +35,10 @@ DC power adapter. **[DC Power Adapter][adapter]**
 `Note`: The solenoid valve must match the power adapter type. And 3/4 inch solenoid valve is more than enough for small home projects.
 
 
-### Breadboard Image
+**### Breadboard Image**
 
-Image of the breadboard : **[imageBreadboard][image] **
+Image of the breadboard : **[ImageBreadboard][image]**
+
 Image of the circuit : **[Circuit][circuitImg]**
 
 [raspy]: https://www.raspberrypi.org/products/raspberry-pi-4-model-b/
@@ -49,3 +50,4 @@ Image of the circuit : **[Circuit][circuitImg]**
 [valve]: https://www.lowes.com/pd/Orbit-1-in-Plastic-Electric-Inline-Irrigation-Valve/1000152387
 [adapter]: https://www.amazon.com/12v-power-supply/s?k=12v+power+supply
 [circuitImg]: https://github.com/mohit2530/LawnSprinklerSystem
+[image]: https://github.com/mohit2530/LawnSprinklerSystem
