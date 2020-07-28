@@ -8,55 +8,7 @@
 
  Lawn Sprinkler System is designed to aid in proper usage of the sprinkler system to effectively aid the users to care for their lawn. In the first release of the project, this lawn sprinkler system does the very basics and we will continue to provide upgrade as we develop such features.
 
- ## Limitations
-
- 1. We have no way of letting the user provide the lawn dryness. Lawn Dryness is set at `Medium` as such.
-
- 2. One of the major upgrades is to calculate the water flow, and be able to assume the amount of water contained in  one given area to give estimates on how long the flow has to occur. We are still working on its implementation.
-
-
-## Release 1.00.02
-
- 1. Monitoring Weather. If the hours is between 5 am and 10 am then only we monitor the weather. If the time is not at the allocated range, the sprinkler system should not even activate.
-
- 2. Lawn dryness is still currently set at `Medium`.
-
- 3. Previous day weather and future days weather are still not taken under consideration. Using `OpenWeatherApi.org` for the weather data. Working on the fix to fetch values for previous and future data.
-
- 4. Water flow is also WIP. Will update in the coming releases.
-
-
-## Release 1.00.03
-
-1. Updating the water flow. Now the program will set the watering to a dedicated level. More WIP on future releases.
-
-2. Includes minor bug fixes.
-
-
-## Release 1.00.04
-
- 1. Updating the water flow, currently the timer operates in conjunction to the level of water flow. Therefore, relaying stop to the relay when the timer has expired.
-
- 2. Logging is enabled and all weather data is being stored in the information files.
-
-
-## Release 1.00.05
-
-1. Installation of `pip3 install pytz` for local date time.
-
-2. Surfacing the ability to look into previous day weather data and set the sprinkler to run henceforth.
-
-3. Control the size of the file, If the file is too large, then the script will remove the first lines. This check only occurs on December 31 every year.
-
-## Release 1.00.06
-
-1. Set up to work in cron timer from RASPBERRY PI.
-
-2. Odd hourly checks are run, cron tab is also set for odd hours.
-
-3. Installation of `sudo apt-get install python-rpi.gpio python3-rpi.gpio`
-
-
+ 
 ## Basic Installations
 
 We are currently upgrading our systems to be able to use docker. Once that is put into place, we no longer would require dependencies to be installed. For now however, we have some dependencies to be installed.
@@ -112,7 +64,7 @@ limitations under the License.
 [roadmap-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/roadmap.png
 [contributing-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/contributing.png
 
-[techdocs]: https://github.com/mohit2530/LawnSprinklerSystem
-[setup]: https://github.com/mohit2530/LawnSprinklerSystem
+[techdocs]: https://github.com/mohit2530/LawnSprinklerSystem/blob/master/documentation.md
+[setup]: https://github.com/mohit2530/LawnSprinklerSystem/blob/master/setup.md
 [roadmap]: https://github.com/mohit2530/LawnSprinklerSystem
 [contributing]: https://github.com/mohit2530/LawnSprinklerSystem

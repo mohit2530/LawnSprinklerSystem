@@ -3,8 +3,7 @@
 LAWN SPRINKLER SYSTEM
 -----------------------
 
-
-Version 1.0.06
+Version 2.00.00
 
     Water Output Schematics
     -----------------------
@@ -28,9 +27,7 @@ import requests, json, logging, pytz, time
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-GPIO.setup(17, GPIO.OUT)
-GPIO.setup(27, GPIO.OUT)
-GPIO.setup(22, GPIO.OUT)
+GPIO.setup(21, GPIO.OUT)
 
 def start():
 
@@ -55,9 +52,7 @@ def countdown(allocatedTime):
 
     @return bool : false when the timer ends
     '''
-    GPIO.output(27, GPIO.HIGH) # set the first led
-    GPIO.output(22, GPIO.HIGH) # set the second led
-    GPIO.output(17, GPIO.HIGH) # set the relay to on position
+    GPIO.output(21, GPIO.HIGH) # set the relay to on position
     while allocatedTime >= 0:
         mins, secs = divmod(allocatedTime, 60)
         timeformat = '{:02f}:{:02f}'.format(mins, secs)
@@ -65,9 +60,7 @@ def countdown(allocatedTime):
         time.sleep(1)
         allocatedTime -= 1
     logging.warning("Water is ending")
-    GPIO.output(17, GPIO.LOW) # set the relay to off
-    GPIO.output(27, GPIO.LOW) # set the first led
-    GPIO.output(22, GPIO.LOW) # set the second led
+    GPIO.output(21, GPIO.LOW) # set the relay to off
     return False;
 
 def run(datetime):
