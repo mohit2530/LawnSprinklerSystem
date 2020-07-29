@@ -18,6 +18,7 @@ We are currently upgrading our systems to be able to use docker. Once that is pu
  3. pip3 install pytz for local datetime
  4. sudo apt-get install python-rpi.gpio python3-rpi.gpio
  5. Crontab :: --> 0 * * * * python3 [location of file]
+ 6. `sudo su` -> `crontab -e` -> `0 7 * * 1 apt update && apt dist-upgrade -y`
 
 
  ## QuickStart
