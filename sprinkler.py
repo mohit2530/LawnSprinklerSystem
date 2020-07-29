@@ -27,7 +27,8 @@ import requests, json, logging, pytz, time
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-GPIO.setup(21, GPIO.OUT)
+channel = 21
+GPIO.setup(channel, GPIO.OUT)
 
 def start():
     # for logging purposes only
@@ -51,7 +52,7 @@ def countdown(allocatedTime):
 
     @return bool : false when the timer ends
     '''
-    channelOn(21);  # set the relay to on position
+    channelOff(21);  # set the relay to on position
     while allocatedTime >= 0:
         mins, secs = divmod(allocatedTime, 60)
         timeformat = '{:02f}:{:02f}'.format(mins, secs)
@@ -59,7 +60,8 @@ def countdown(allocatedTime):
         time.sleep(1)
         allocatedTime -= 1
     logging.warning("Water is ending")
-    channelOff(21); # set the relay to off
+    channelOn(21); # set the relay to off
+    GPIO.cleanup()
     return False;
 
 def run(datetime):
