@@ -8,7 +8,7 @@
 
  Lawn Sprinkler System is designed to aid in proper usage of the sprinkler system to effectively aid the users to care for their lawn. In the first release of the project, this lawn sprinkler system does the very basics and we will continue to provide upgrade as we develop such features.
 
- 
+
 ## Basic Installations
 
 We are currently upgrading our systems to be able to use docker. Once that is put into place, we no longer would require dependencies to be installed. For now however, we have some dependencies to be installed.
@@ -17,8 +17,9 @@ We are currently upgrading our systems to be able to use docker. Once that is pu
  2. requests library for python
  3. pip3 install pytz for local datetime
  4. sudo apt-get install python-rpi.gpio python3-rpi.gpio
- 5. Crontab :: --> 0 * * * * python3 [location of file]
- 6. `sudo su` -> `crontab -e` -> `0 7 * * 1 apt update && apt dist-upgrade -y`
+ 5. Crontab :: --> 0 * * * * python3 [location of file] <!-- run the scrint on the hour every hour -->
+ 6. Crontab :: --> 0 22 * * * cd /home/Desktop/code/LawnSprinklerSystem && git pull <!-- git pull everyday 10 pm from master -->
+ 6. `sudo su` -> `crontab -e` -> `0 7 * * 1 apt update && apt dist-upgrade -y` <!-- update the electronics every monday at 7 am -->
 
 
  ## QuickStart
