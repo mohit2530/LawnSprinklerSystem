@@ -50,3 +50,12 @@
 2. Sprinkler is adjusted to run at 6 am in the morning. If rain is not detected within the following day, the sprinkler should start for a time span of 9.12 minutes. This occurs everyday provided the conditions are met.
 
 3. Will update features as / if they are requested.
+
+
+## Release 2.00.01
+
+1. Minor bug fixes and updates.
+
+2. Ability to send email services to users that are set up.
+
+3. Clear redundant information texts every month on the 15th.
