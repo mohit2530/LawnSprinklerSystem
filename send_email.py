@@ -1,5 +1,6 @@
-import smtplib
 import config
+import smtplib
+import password
 
 def send_email(subject, msg):
     try:
@@ -7,7 +8,7 @@ def send_email(subject, msg):
         server.ehlo()
         server.starttls()
 
-        server.login(config.FROM, config.PASSWORD)
+        server.login(config.FROM, password.PASSWORD)
         message = 'Subject: {}\n\n {}'.format(subject, msg)
         server.sendmail(config.FROM, config.TO, message)
         server.quit()

@@ -1,7 +1,6 @@
 
 TO = "mohit.paudyal@gmail.com"
 FROM = "lawnsprinklernotifcations@gmail.com"
-PASSWORD = "defaultNotificationHorse"
 
 cityName = "Worthington"
 timeZone = "America/New_York"
