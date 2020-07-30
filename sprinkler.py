@@ -22,7 +22,7 @@ Version 2.00.00
 
 '''
 
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import requests, json, logging, pytz, time
 
 import send_email
