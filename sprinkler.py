@@ -22,12 +22,15 @@ Version 2.00.00
 
 '''
 
-from datetime import datetime, timedelta
-import requests, json, logging, pytz, time
 import RPi.GPIO as GPIO
+import requests, json, logging, pytz, time
+
+from email.send_email import send_email
+from datetime import datetime, timedelta
+
+channel = 21
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-channel = 21
 GPIO.setup(channel, GPIO.OUT)
 
 def start():
@@ -38,6 +41,7 @@ def start():
 
     if (shouldStartWater != False):
         logging.warning("Water is starting.")
+        setupThread(weatherObject)
         start_timer = calculateWaterFlow();
         if (start_timer):
        		stopMotion = countdown(start_timer); # start water && end it
@@ -64,6 +68,18 @@ def countdown(allocatedTime):
     GPIO.cleanup()
     return False;
 
+def setupThread(currentTime, weatherObject):
+    if (currentTime.hour):
+        subject = "Lawn Sprinkler System Notification"
+        msg = "Current Time : {} \n City : {} \t\t Weather : {} \t\t Description : {} \n\n Current Temperature : {} \t\t Current Humidity : {} \t\t Current Wind Speed : {} \n\n".format(currentTime, 
+            weatherObject[0], weatherObject[1], weatherObject[2], weatherObject[3], weatherObject[4], weatherObject[5])
+        message = 'Subject: {}\n\n {}'.format(subject, msg)
+        return sendEmail(subject, message)
+
+
+def sendEmail(subject, message="Failure to attach message"):
+    send_email(subject, message);
+
 def run(datetime):
     city_name = "Worthington";
     timeZone = pytz.timezone('America/New_York')
@@ -77,11 +93,11 @@ def run(datetime):
         logging.error("Weather API data failed... Cannot generate data.");
 
     if ( currentTime.month == 12 and currentTime.day == 31) :
-        clearInfoPeriodically(fileName);
+        clearLines(fileName);
 
     noRainValue = noRain(fileName, currentTime); # retrieve the data from the information.txt file
      # To dictate whether or not the water has to start or stop. Note: runs at 6am in the morning.
-    if ( (currentTime.hour == 6) and noRainValue):
+    if ( (currentTime.hour) and noRainValue):
         return True;
     return False;
 
@@ -110,11 +126,27 @@ def logWeatherAndTime( currentTime, city_name, fileName):
     if (currentTime.hour in hourlyChecksToMaintain):
         fetch_url = base_url + "appid=" + api_key + "&q=" + city_name;
         response = requests.get(fetch_url).json();
-        currentWeather = response["weather"][0]["main"];
+        currentWeatherData = retrieveCurrentWeatherCharacteristics(response)
+        setupThread(currentTime, currentWeatherData)
+
         with open(fileName, "a") as writeFile:
             timeAndData = currentTime.strftime('%Y-%m-%d %H:%M:%S') + " " + currentWeather + '\n';
             writeFile.write(timeAndData)
         return currentWeather;
+
+
+def retrieveCurrentWeatherCharacteristics(response):
+    currentCity = response["name"]
+    currentWeather = response["weather"][0]["main"];
+    currentWeatherDescription = response["weather"][0]["description"]
+    currentTemperature = response["main"]['temp'] + "F"
+    currentHumidity = response["main"]["humidity"] + "%"
+    currentWindSpeed = response["wind"]["speed"] + "MPH"
+
+    weatherData = {currentCity, currentWeather, currentWeatherDescription, currentTemperature, currentHumidity,
+        currentWindSpeed}
+    return weatherData
+
 
 def calculateWaterFlow():
     '''
@@ -150,7 +182,7 @@ def channelOff(pin):
     '''
     GPIO.output(pin, GPIO.LOW)
 
-def clearInfoPeriodically(fileName):
+def clearLines(fileName):
     '''
     Function to periodically remove the lines from the file so that the file doesn't get too large.
     '''
