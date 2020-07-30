@@ -1,5 +1,4 @@
-
-import smtplib 
+import smtplib
 import config
 
 def send_email(subject, msg):
