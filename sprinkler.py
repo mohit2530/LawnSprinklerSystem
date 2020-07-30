@@ -25,7 +25,7 @@ Version 2.00.00
 import RPi.GPIO as GPIO
 import requests, json, logging, pytz, time
 
-import send_email
+from send_email import send_thread
 from datetime import datetime, timedelta
 
 channel = 21
@@ -35,19 +35,19 @@ GPIO.setup(channel, GPIO.OUT)
 
 def start():
     # for logging purposes only
-    fileName = "/home/pi/Desktop/code/LawnSprinklerSystem/loggingFile.log";
-    loggingValue = enableLogging(fileName);
-    shouldStartWater = run(datetime);
+    fileName = "/home/pi/Desktop/code/LawnSprinklerSystem/loggingFile.log"
+    loggingValue = enableLogging(fileName)
+    shouldStartWater = run(datetime)
 
     if (shouldStartWater != False):
         logging.warning("Water is starting.")
-        setupThread(weatherObject)
-        start_timer = calculateWaterFlow();
+        start_timer = calculateWaterFlow()
         if (start_timer):
-       		stopMotion = countdown(start_timer); # start water && end it
+       		stopMotion = countdown(start_timer) # start water && end it
+        	# setupThread(currentTime, weatherObject)
     else:
-        logging.warning("Water has failed to start. Check logs if inconsistencies are detected.");
-        return False;
+        logging.warning("Water has failed to start. Check logs if inconsistencies are detected.")
+        return False
 
 def countdown(allocatedTime):
     '''
@@ -69,16 +69,21 @@ def countdown(allocatedTime):
     return False;
 
 def setupThread(currentTime, weatherObject):
-    if (currentTime.hour):
+    '''
+    Setting up the email parameters to send to the customer. Data is generated from the Weather API at the time of the sprinkler movement.
+    '''
+    if (currentTime.hour == 6):
         subject = "Lawn Sprinkler System Notification"
-        msg = "Current Time : {} \n City : {} \t\t Weather : {} \t\t Description : {} \n\n Current Temperature : {} \t\t Current Humidity : {} \t\t Current Wind Speed : {} \n\n".format(currentTime, 
-            weatherObject[0], weatherObject[1], weatherObject[2], weatherObject[3], weatherObject[4], weatherObject[5])
+        msg = "Current Time : {} \n City : {} \n Weather : {} \n Description : {} \n\n Current Temperature : {} \n Current Humidity : {} \n Current Wind Speed : {} \n\n".format(currentTime.strftime('%Y-%m-%d %H:%M:%S'),  weatherObject["currentCity"], weatherObject["currentWeather"], weatherObject["currentWeatherDescription"], weatherObject["currentTemperature"], weatherObject["currentHumidity"], weatherObject["currentWindSpeed"])
         message = 'Subject: {}\n\n {}'.format(subject, msg)
         return sendEmail(subject, message)
 
 
 def sendEmail(subject, message="Failure to attach message"):
-    send_email(subject, message);
+   '''
+   Send Email function to send the email to the recepient labelled in the config file. If there is no message attached, then the failure message is produced.
+   '''
+   send_thread(subject, message);
 
 def run(datetime):
     city_name = "Worthington";
@@ -124,10 +129,13 @@ def logWeatherAndTime( currentTime, city_name, fileName):
     hourlyChecksToMaintain = [i for i in range(24) if i % 2 != 0];
 
     if (currentTime.hour in hourlyChecksToMaintain):
-        fetch_url = base_url + "appid=" + api_key + "&q=" + city_name;
+        fetch_url = base_url + "appid=" + api_key + "&q=" + city_name + "&units=metric";
         response = requests.get(fetch_url).json();
-        currentWeatherData = retrieveCurrentWeatherCharacteristics(response)
-        setupThread(currentTime, currentWeatherData)
+
+        currentWeatherData = retrieveCurrentWeatherCharacteristics(response) # method to setup the email thread for the user
+        setupThread(currentTime, currentWeatherData) # sets the email with the current data
+
+        currentWeather = currentWeatherData["currentWeather"]
 
         with open(fileName, "a") as writeFile:
             timeAndData = currentTime.strftime('%Y-%m-%d %H:%M:%S') + " " + currentWeather + '\n';
@@ -136,16 +144,18 @@ def logWeatherAndTime( currentTime, city_name, fileName):
 
 
 def retrieveCurrentWeatherCharacteristics(response):
-    currentCity = response["name"]
-    currentWeather = response["weather"][0]["main"];
-    currentWeatherDescription = response["weather"][0]["description"]
-    currentTemperature = response["main"]['temp'] + "F"
-    currentHumidity = response["main"]["humidity"] + "%"
-    currentWindSpeed = response["wind"]["speed"] + "MPH"
-
-    weatherData = {currentCity, currentWeather, currentWeatherDescription, currentTemperature, currentHumidity,
-        currentWindSpeed}
-    return weatherData
+   '''
+   Method to retrieve the current weather characteristics.
+   '''
+   weatherData = {
+	"currentCity" : response["name"],
+	"currentWeather" : response["weather"][0]["main"],
+	"currentWeatherDescription" : response["weather"][0]["description"],
+	"currentTemperature" : str(response["main"]["temp"]) + " F",
+	"currentHumidity" : str(response["main"]["humidity"]) + " %",
+	"currentWindSpeed" : str(response["wind"]["speed"]) + " MPH"
+   }
+   return weatherData
 
 
 def calculateWaterFlow():

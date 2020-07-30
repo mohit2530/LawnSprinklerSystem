@@ -8,7 +8,7 @@ def send_email(subject, msg):
         server.ehlo()
         server.starttls()
 
-        server.login(config.EMAIL, config.PASSWORD)
+        server.login(config.FROM, config.PASSWORD)
         message = 'Subject: {}\n\n {}'.format(subject, msg)
         server.sendmail(config.FROM, config.TO, message)
         server.quit()
@@ -19,6 +19,3 @@ def send_email(subject, msg):
 
 def send_thread(subject, msg):
     send_email(subject, msg)
-
-
-send_thread(subject="No subject selected", msg="No Message selected")
