@@ -1,6 +1,6 @@
 
 import smtplib 
-from configuration import config
+import config
 
 def send_email(subject, msg):
     try:

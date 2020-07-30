@@ -22,10 +22,10 @@ Version 2.00.00
 
 '''
 
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
 import requests, json, logging, pytz, time
 
-from email.send_email import send_email
+import send_email
 from datetime import datetime, timedelta
 
 channel = 21
