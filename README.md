@@ -20,6 +20,7 @@ We are currently upgrading our systems to be able to use docker. Once that is pu
  5. Crontab :: --> 0 * * * * python3 [location of file] <!-- run the scrint on the hour every hour -->
  6. Crontab :: --> 0 22 * * * cd /home/Desktop/code/LawnSprinklerSystem && git pull <!-- git pull everyday 10 pm from master -->
  6. `sudo su` -> `crontab -e` -> `0 7 * * 1 apt update && apt dist-upgrade -y` <!-- update the electronics every monday at 7 am -->
+ 7. Added the smtp library for email usage. Available without installation on python 3 +
 
 
  ## QuickStart
