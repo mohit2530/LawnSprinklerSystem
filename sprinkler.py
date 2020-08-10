@@ -106,8 +106,9 @@ def run(userInformation):
 
     # Every month on the 15th, the files are cleared and logs are destroyed.
     monthlyChecks = [i for i in range(13)]
-    if ( (userInformation["currentTime"].month in monthlyChecks) and userInformation["currentTime"].day == 15) :
-        clearLines(fileName)
+    if ( (userInformation["currentTime"].month in monthlyChecks) and userInformation["currentTime"].day == 15 and userInformation["currentTime"].hour = 7) :
+        clearLines(userInformation["infoFile"])
+	clearLines(userInformation["logFile"])
 
     noRainValue = noRain(userInformation["infoFile"], userInformation["currentTime"])
 
