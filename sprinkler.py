@@ -32,7 +32,6 @@ from datetime import datetime, timedelta
 channel = 21
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-GPIO.setup(channel, GPIO.OUT)
 
 def start():
 
@@ -54,21 +53,22 @@ def start():
         logging.warning("Water is starting.")
         start_timer = calculateWaterFlow()
         if (start_timer):
-            stopMotion = countdown(start_timer) # start water && end it
+            stopMotion = countdown(start_timer, channel) # start water && end it
             # signal to send email
             setupThread(userInformation["currentTime"], weatherData)
     else:
         logging.warning("Water has failed to start. Check logs if inconsistencies are detected.")
         return False
 
-def countdown(allocatedTime):
+def countdown(allocatedTime, channel):
     '''
     Countdown timer function.
     Input : The time in seconds
 
     @return bool : false when the timer ends
     '''
-    channelOff(21)  # set the relay to on position
+    GPIO.setup(channel, GPIO.OUT)
+    channelOff(channel)  # set the relay to on position
     while allocatedTime >= 0:
         mins, secs = divmod(allocatedTime, 60)
         timeformat = '{:02f}:{:02f}'.format(mins, secs)
@@ -76,7 +76,7 @@ def countdown(allocatedTime):
         time.sleep(1)
         allocatedTime -= 1
     logging.warning("Water is ending")
-    channelOn(21) # set the relay to off
+    channelOn(channel) # set the relay to off
     GPIO.cleanup()
     return False
 
@@ -112,7 +112,7 @@ def run(userInformation):
     noRainValue = noRain(userInformation["infoFile"], userInformation["currentTime"])
 
     # To dictate whether or not the water has to start or stop. Note: runs at 6am in the morning.
-    if ((userInformation["currentTime"].hour == 6) and noRainValue):
+    if ((userInformation["currentTime"].hour == 7) and noRainValue):
         return validWeatherAndTime
     return False
 
