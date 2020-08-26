@@ -169,7 +169,7 @@ def calculateWaterFlow():
     The average water output and average water required by a lawn are constant values and are averages depending on the grass you use.
     '''
     averageWaterOutput = 1.22 # 1.22 inches an hour
-    averageWaterRequiredByLawn = 1.3 # 1.3 inches per week. This can vary depending on the grass
+    averageWaterRequiredByLawn = 2.0 # 2.0 inches per week. This can vary depending on the grass
 
     weeklyWaterTheLawn = (averageWaterRequiredByLawn / averageWaterOutput ) * 60 # converting into minutes
     dailyWaterTheLawn = weeklyWaterTheLawn / 7
