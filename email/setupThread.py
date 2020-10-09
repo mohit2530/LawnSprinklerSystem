@@ -42,3 +42,4 @@ def sendMail(subject, msg):
     
     except:
         print("Failure to send email.")
+
