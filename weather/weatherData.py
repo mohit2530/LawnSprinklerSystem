@@ -36,6 +36,6 @@ def checkForRain(clientInfo):
         readFile = readingFile.readlines()
         for line in readFile:
             fields = line.split()
-            if ( (fields[0].__contains__(yesterday) or fields[0].__contains__(today) ) and (fields[3:4].__contains__("Rain") or fields[3:4].__contains__("Thunderstorm")):
+            if ( ( fields[0].__contains__(yesterday) or fields[0].__contains__(today) )  and ( fields[3:4].__contains__("Rain") or fields[3:4].__contains__("Thunderstorm") ) ):
                 return True;
     return False;
