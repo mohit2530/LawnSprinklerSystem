@@ -1,6 +1,6 @@
 from weather import water;
 from client import userInfo;
-from email import setupEmail;
+from email import setupThread;
 from weather import weatherData;
 
 
@@ -12,7 +12,7 @@ def mainFunction():
     if (generateWeatherData):
         calculateWater = water.waterCalculator();
         calculateTimer = water.countdown(calculateWater, clientInfo["channel"]);
-        setupEmail.notify(clientInfo, generateWeatherData);
+        setupThread.notify(clientInfo, generateWeatherData);
         return True;
 
     setupThread.notify(clientInfo, generateWeatherData);
