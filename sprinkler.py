@@ -1,7 +1,6 @@
 
 from weather import water;
 from client import userInfo;
-from client import clientInfo;
 from sendUpdate import readyEmail;
 from weather import weatherData;
 
@@ -13,11 +12,11 @@ def mainFunction():
 
     if (generateWeatherData):
         calculateWater = water.waterCalculator();
-        calculateTimer = water.countdown(calculateWater, clientInfo["channel"]);
-        readyEmail.notify(clientInfo, generateWeatherData);
+        calculateTimer = water.countdown(calculateWater, clientInformation["channel"]);
+        readyEmail.notify(clientInformation, generateWeatherData);
         return True;
 
-    readyEmail.notify(clientInfo, generateWeatherData);
+    readyEmail.notify(clientInformation, generateWeatherData);
     return False;
 
 
