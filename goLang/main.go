@@ -1,29 +1,38 @@
 package main
 
 import (
-	"fmt"
-	userinfo "github.com/mohit2530/LawnSprinklerSystem/goLang/service/userInfo"
-	"github.com/mohit2530/LawnSprinklerSystem/goLang/service/utility"
-	"github.com/mohit2530/LawnSprinklerSystem/goLang/service/weatherApi"
+	"github.com/mohit2530/LawnSprinklerSystem/goLang/svc"
+	"log"
+	"time"
 )
 
 func main() {
 
-	utility.WelcomeMessage()
-	userDetails := userinfo.BuildUserInfo()
+	var clientInfo svc.ClientInformation
+	clientDetails, err := clientInfo.GetClientInfo()
+	if err != nil {
+		log.Fatal(err)
+	}
+	clientDetails.CurrentTime = time.Now()
 
-	cityName := userDetails.City
-	weatherDetails := weatherApi.BuildWeatherDetails(cityName)
-	sanitizedData := FormatWeather(weatherDetails)
-	utility.SaveFile(sanitizedData)
-}
+	weatherDetails, err := svc.BuildWeatherDataCSV(clientDetails)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-// FormatWeather function formats the weather data into a single line of string
-func FormatWeather(weatherDetails weatherApi.WeatherDetails) (formattedData string) {
+	if weatherDetails != nil {
+		svc.InitializeWaterFlow(clientDetails.Channel, clientDetails.WaterTime)
+		var currentWeather = svc.CurrentWeather{
+			City:        weatherDetails.City,
+			Weather:     weatherDetails.Weather,
+			WeatherDesc: weatherDetails.WeatherDesc,
+			Temperature: weatherDetails.Temperature,
+			Humidity:    weatherDetails.Humidity,
+			WindSpeed:   weatherDetails.WindSpeed,
+		}
 
-	currentTemp := fmt.Sprintf("%.2f", weatherDetails.Main.Temp)
-	currentHumidity := fmt.Sprintf("%d", weatherDetails.Main.Humidity)
-	currentWindSpeed := fmt.Sprintf("%d", weatherDetails.Wind.Speed)
-	formattedData = fmt.Sprintf("%10v %10v %20v %10v %10v %10v", weatherDetails.Name, weatherDetails.Weather[0].Main, weatherDetails.Weather[0].Description, currentTemp, currentHumidity, currentWindSpeed)
-	return formattedData
+		var emailDetails svc.EmailDetails
+		emailDetails.NotifyClient(clientInfo, currentWeather)
+
+	}
 }

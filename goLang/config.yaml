@@ -1,0 +1,12 @@
+ApiKey: 59003b2d5fc0527ad0947d7857ed26cb
+BaseUri: http://api.openweathermap.org/data/2.5/weather?
+Channel: 21
+Cityname: Bastrop
+Watertime: 7
+
+AverageWaterOutput: 1.22 # inches per hour
+AverageWaterRequiredLawn: 2.0 # inches per week. varies depending on the grass
+
+EmailNotificationRecipient: mohit.paudyal@gmail.com
+EmailNotificationSender: lawnsprinklernotifcations@gmail.com
+EmailNotificationSubject: lawn sprinkler system usage data
