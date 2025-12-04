@@ -13,6 +13,7 @@ func main() {
 
 	router.HandleFunc("/api/v1/health", handler.GetSystemHealth).Methods(http.MethodPost)
 
-	log.Println("Api is up and running ... ")
-	http.ListenAndServe(":4165", router)
+	port := ":4165"
+	log.Printf("Using port: %+v", port)
+	http.ListenAndServe(port, router)
 }
